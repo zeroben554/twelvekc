@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Struktur Kelas</title>
+</head>
+<body>
+  <h2>Tambah Struktur Kelas</h2>
+  <form action="simpan.php" method="POST" enctype="multipart/form-data">
+    <label>Jabatan:</label><br>
+    <input type="text" name="jabatan" required><br><br>
+
+    <label>Nama:</label><br>
+    <input type="text" name="nama" required><br><br>
+
+    <label>Foto:</label><br>
+    <input type="file" name="foto" accept="image/*" required><br><br>
+
+    <button type="submit">Simpan</button>
+  </form>
+
+  <h2>Data Struktur Kelas</h2>
+  <?php
+    $conn = new mysqli("localhost", "root", "", "sekolah");
+    $result = $conn->query("SELECT * FROM struktur_kelas");
+
+    echo "<div style='display:flex; gap:20px; flex-wrap:wrap;'>";
+    while ($row = $result->fetch_assoc()) {
+      echo "<div style='border:1px solid #ccc; padding:10px; width:150px; text-align:center;'>";
+      echo "<img src='uploads/".$row['foto']."' width='100' height='100' style='border-radius:50%;'><br>";
+      echo "<b>".$row['jabatan']."</b><br>".$row['nama'];
+      echo "</div>";
+    }
+    echo "</div>";
+  ?>
+</body>
+</html>
